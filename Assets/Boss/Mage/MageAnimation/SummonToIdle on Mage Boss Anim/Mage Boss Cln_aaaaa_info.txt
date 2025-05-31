@@ -1,0 +1,16 @@
+version: 2
+type: animation
+name: SummonToIdle
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 9
+0	SummonToIdle_000.png
+1	SummonToIdle_001.png
+2	SummonToIdle_002.png
+3	SummonToIdle_003.png
+4	SummonToIdle_004.png
+5	SummonToIdle_005.png
+6	SummonToIdle_006.png
+7	SummonToIdle_007.png
+8	SummonToIdle_008.png

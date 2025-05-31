@@ -1,0 +1,17 @@
+version: 2
+type: animation
+name: Death Start
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 10
+0	Death Start_000.png
+1	Death Start_001.png
+2	Death Start_002.png
+3	Death Start_003.png
+4	Death Start_004.png
+5	Death Start_005.png
+6	Death Start_006.png
+7	Death Start_007.png
+8	Death Start_008.png
+9	Death Start_009.png

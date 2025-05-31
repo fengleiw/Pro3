@@ -1,0 +1,15 @@
+version: 2
+type: animation
+name: Quake Antic Quick
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 8
+0	Quake Antic Quick_000.png
+1	Quake Antic Quick_001.png
+2	Quake Antic Quick_002.png
+3	Quake Antic Quick_003.png
+4	Quake Antic Quick_004.png
+5	Quake Antic Quick_005.png
+6	Quake Antic Quick_006.png
+7	Quake Antic Quick_007.png

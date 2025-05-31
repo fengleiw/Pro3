@@ -1,0 +1,13 @@
+version: 2
+type: animation
+name: Stun
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 6
+0	Stun_000.png
+1	Stun_001.png
+2	Stun_002.png
+3	Stun_003.png
+4	Stun_004.png
+5	Stun_005.png

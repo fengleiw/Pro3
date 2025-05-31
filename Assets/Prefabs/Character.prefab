@@ -410,7 +410,7 @@ MonoBehaviour:
   SideAttackTransform: {fileID: 1051212011906639786}
   UpAttackTransform: {fileID: 2015589313953155055}
   DownAttackTransform: {fileID: 6369583678117844295}
-  SideAttackArea: {x: 1.71, y: 1.2}
+  SideAttackArea: {x: 1.75, y: 1.2}
   UpAttackArea: {x: 1.8, y: 1.5}
   DownAttackArea: {x: 1.8, y: 1.5}
   attackableLayer:

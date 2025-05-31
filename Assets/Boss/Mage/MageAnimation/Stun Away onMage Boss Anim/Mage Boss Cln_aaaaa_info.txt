@@ -1,0 +1,10 @@
+version: 2
+type: animation
+name: Stun Away
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 3
+0	Stun Away_000.png
+1	Stun Away_001.png
+2	Stun Away_002.png

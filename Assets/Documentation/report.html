@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Báo Cáo Project 3</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            margin: 2.54cm;
+            line-height: 1.5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2cm;
+        }
+        .title {
+            font-size: 24pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 1cm 0;
+        }
+        .subtitle {
+            font-size: 18pt;
+            font-weight: bold;
+            margin: 1cm 0;
+        }
+        .author-info {
+            text-align: center;
+            margin: 1cm 0;
+        }
+        .toc {
+            margin: 2cm 0;
+        }
+        .toc h2 {
+            text-align: center;
+            font-size: 18pt;
+            font-weight: bold;
+            margin-bottom: 1cm;
+        }
+        .toc-item {
+            margin: 0.5cm 0;
+        }
+        .chapter {
+            margin: 2cm 0;
+        }
+        .chapter h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            margin-bottom: 1cm;
+        }
+        .chapter h2 {
+            font-size: 16pt;
+            font-weight: bold;
+            margin: 1cm 0;
+        }
+        .chapter h3 {
+            font-size: 14pt;
+            font-weight: bold;
+            margin: 0.8cm 0;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .center {
+            text-align: center;
+        }
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            margin: 0.5cm 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1cm 0;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 0.5cm;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">ĐẠI HỌC BÁCH KHOA HÀ NỘI</div>
+        <div class="title">TRƯỜNG CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG</div>
+        <div class="subtitle">BÁO CÁO PROJECT 3</div>
+        <div class="author-info">
+            <p class="bold">Giảng viên hướng dẫn: Mrs. Nguyễn Thị Kim Anh</p>
+            <p class="bold">Sinh viên thực hiện: Lý Vĩ Phong – 20215447</p>
+        </div>
+        <p>Hà Nội, Tháng 4 Năm 2025</p>
+    </div>
+
+    <div class="toc">
+        <h2>MỤC LỤC</h2>
+        <div class="toc-item">
+            <p class="bold">CHƯƠNG 1. TỔNG QUAN</p>
+            <p>1.1 Mô tả chung</p>
+            <p>1.2 Yêu cầu cụ thể</p>
+            <p>1.2.1 Yêu cầu chức năng</p>
+            <p>1.2.2 Yêu cầu phi chức năng</p>
+            <p>1.3 Trạng thái nhân vật</p>
+            <p>1.3.1 Các điều kiện trạng thái</p>
+            <p>1.3.2 Hệ thống Mana và Hồi máu</p>
+        </div>
+        <div class="toc-item">
+            <p class="bold">CHƯƠNG 2. CÀI ĐẶT VÀ THỰC NGHIỆM</p>
+            <p>2.1 Công nghệ sử dụng</p>
+            <p>2.1.1 Game Engine</p>
+            <p>2.1.2 Môi trường lập trình</p>
+            <p>2.1.3 Ngôn ngữ lập trình C#</p>
+            <p>2.1.4 Hiệu ứng đồ hoạ</p>
+            <p>2.1.6 Hệ thống truyền sự kiện</p>
+            <p>2.2 Cài đặt</p>
+            <p>2.2.1 Ứng dụng trong triển khai luồng hoạt động của màn chơi</p>
+            <p>2.2.2 Xây dựng nhân vật</p>
+            <p>2.2.3 Xây dựng môi trường trò chơi</p>
+            <p>2.2.4 Kẻ địch</p>
+            <p>2.3 Spike</p>
+            <p>2.4 Respawn point</p>
+            <p>2.5 Save Point</p>
+            <p>2.6 Hệ thống UI</p>
+            <p>2.7 Hệ thống âm thanh</p>
+            <p>2.7.1 Các loại âm thanh trong game</p>
+            <p>2.7.2 Triển khai Audio System</p>
+            <p>2.7 Thực nghiệm</p>
+        </div>
+        <div class="toc-item">
+            <p class="bold">CHƯƠNG 3. KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN</p>
+            <p>3.1 Kết luận</p>
+            <p>3.2 Thách thức gặp phải</p>
+            <p>3.3 Hướng phát triển</p>
+            <p>3.4 Bài học kinh nghiệm</p>
+        </div>
+        <div class="toc-item">
+            <p class="bold">CHƯƠNG 4. TÀI LIỆU THAM KHẢO</p>
+        </div>
+    </div>
+
+    <div class="chapter">
+        <h1>CHƯƠNG 1. TỔNG QUAN</h1>
+        
+        <h2>1.1 Mô tả chung</h2>
+        <p>Trò chơi thuộc thể loại 2D platformer. Game 2D platformer là thể loại điều khiển nhân vật trên các "platform" (nền tảng), người chơi sẽ nhập vai vào nhân vật di chuyển trong các thế giới trong trò chơi và vượt qua các chướng ngại vật được thiết kế trong màn chơi để đi tới màn tiếp theo. Trò chơi đòi hỏi người chơi cần vận dụng các khả năng di chuyển của nhân vật và hiểu biết về các chướng ngại vật để tìm giải pháp vượt qua.</p>
+
+        <h2>1.2 Yêu cầu cụ thể</h2>
+        <h3>1.2.1 Yêu cầu chức năng</h3>
+        <p>Do sự hạn chế về thời gian thực hiện đồ án, nên trò chơi hướng tới việc triển khai hoàn thiện các chức năng cốt lõi của dòng game platformer như sau:</p>
+        <p>- Cho phép điều khiển nhân vật đa dạng: nhân vật có nhiều cách di chuyển khác nhau, các trạng thái nhân vật liên tục phản hồi với trạng thái của trò chơi và input của người chơi.</p>
+
+        <h3>1.2.2 Yêu cầu phi chức năng</h3>
+        <p>Về đồ họa, trò chơi sử dụng đồ họa điểm ảnh (pixel art), sử dụng bảng màu hạn chế, tuy nhiên hướng tới sự đơn giản và thống nhất trong thiết kế từ nhân vật, bản đồ cho tới giao diện UI. Trò chơi cần cung cấp một trải nghiệm mượt mà, tránh hiện tượng giật lag.</p>
+
+        <h2>1.3 Trạng thái nhân vật</h2>
+        <p>Cốt lõi của mọi tựa game platformer luôn là điều khiển nhân vật, vì thế việc thiết kế một máy trạng thái hữu hạn (finite state machine) cho nhân vật để việc triển khai được rõ ràng là vô cùng cần thiết. Máy trạng thái hữu hạn là một mô hình trừu tượng mà tại một thời điểm bất kỳ chỉ có một lượng hữu hạn các trạng thái.</p>
+
+        <h3>1.3.1 Các điều kiện trạng thái</h3>
+        <p>Phần dưới đây sẽ giải thích các phần của đồ thị bằng cách chia nhỏ theo các phần dựa vào điều kiện trạng thái. Các điều kiện trạng thái bao gồm input của người chơi và trạng thái của nhân vật.</p>
+
+        <table>
+            <tr>
+                <th>Input</th>
+                <th>Trạng thái</th>
+                <th>Cách sử dụng</th>
+                <th>Mô tả</th>
+            </tr>
+            <tr>
+                <td>Di chuyển</td>
+                <td>GetAxis("Horizontal")</td>
+                <td>grounded</td>
+                <td>A, D hoặc phím mũi tên</td>
+            </tr>
+            <tr>
+                <td>Nhảy</td>
+                <td>GetButtonDown("Jump")</td>
+                <td>grounded</td>
+                <td>Spacebar</td>
+            </tr>
+            <tr>
+                <td>Nhảy kép</td>
+                <td>GetButtonDown("Jump")</td>
+                <td>!grounded</td>
+                <td>Spacebar khi đang trên không</td>
+            </tr>
+            <tr>
+                <td>Lướt</td>
+                <td>GetButtonDown("Dash")</td>
+                <td></td>
+                <td>Shift</td>
+            </tr>
+            <tr>
+                <td>Tấn công</td>
+                <td>GetButtonDown("Attack")</td>
+                <td></td>
+                <td>Chuột trái</td>
+            </tr>
+            <tr>
+                <td>Tấn công xuống</td>
+                <td>GetAxis("Vertical") < 0 && GetButtonDown("Attack")</td>
+                <td>!grounded</td>
+                <td>S + chuột trái khi ở trên không</td>
+            </tr>
+            <tr>
+                <td>Tấn công lên</td>
+                <td>GetAxis("Vertical") > 0 && GetButtonDown("Attack")</td>
+                <td></td>
+                <td>W + chuột trái</td>
+            </tr>
+            <tr>
+                <td>Sử dụng kĩ năng</td>
+                <td>Cast/Heal && castTimer >= 0.1f</td>
+                <td>Health < maxHealth && Mana > 0</td>
+                <td>Giữ F</td>
+            </tr>
+        </table>
+
+        <h3>1.3.2 Hệ thống Mana và Hồi máu</h3>
+        <p>Hệ thống mana và hồi máu là một phần quan trọng trong gameplay, cho phép người chơi sử dụng các kỹ năng đặc biệt và duy trì sự sống trong trò chơi.</p>
+
+        <p class="bold">a) Hệ thống Mana:</p>
+        <ul>
+            <li>Mana được biểu diễn dưới dạng thanh năng lượng (0-1)</li>
+            <li>Các cách thức thay đổi mana:
+                <ul>
+                    <li>Tăng mana khi tấn công kẻ địch (manaGain)</li>
+                    <li>Giảm mana khi sử dụng phép thuật (manaSpellCost)</li>
+                    <li>Giảm mana khi hồi máu (manaDrainSpeed)</li>
+                </ul>
+            </li>
+            <li>Trạng thái đặc biệt Break Mana: Trạng thái mana bị vỡ, xảy ra khi người chơi chết. Khi ở trạng thái này, mana sẽ bị reset về 0 và không thể hồi phục. Chỉ có thể khôi phục trạng thái mana bình thường khi hồi sinh.</li>
+        </ul>
+
+        <p class="bold">b) Hệ thống Hồi máu:</p>
+        <p>Điều kiện để hồi máu:</p>
+        <ul>
+            <li>Người chơi phải giữ nút "Cast/Heal"</li>
+            <li>Máu hiện tại phải thấp hơn máu tối đa</li>
+            <li>Mana phải lớn hơn 0</li>
+            <li>Nhân vật không được ở trạng thái nhảy hoặc dash</li>
+        </ul>
+
+        <p>Cơ chế hồi máu:</p>
+        <ul>
+            <li>Máu được hồi theo thời gian (timeToHeal)</li>
+            <li>Mỗi lần hồi tăng 1 điểm máu</li>
+            <li>Tiêu tốn mana liên tục trong quá trình hồi</li>
+            <li>Có animation riêng cho trạng thái hồi máu</li>
+        </ul>
+
+        <p>Giới hạn:</p>
+        <ul>
+            <li>Không thể hồi máu khi đang di chuyển nhanh</li>
+            <li>Không thể hồi máu khi đang trong trạng thái bất tử</li>
+            <li>Quá trình hồi máu bị gián đoạn khi nhận sát thương</li>
+        </ul>
+
+        <p class="bold">c) Tương tác giữa Mana và Hồi máu:</p>
+        <ul>
+            <li>Mana đóng vai trò như nguồn tài nguyên để hồi máu</li>
+            <li>Người chơi cần cân nhắc giữa việc sử dụng mana để:
+                <ul>
+                    <li>Hồi máu khi cần thiết</li>
+                    <li>Sử dụng các kỹ năng phép thuật</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p class="bold">d) Hiển thị trực quan:</p>
+        <ul>
+            <li>Thanh mana được hiển thị dưới dạng thanh năng lượng</li>
+            <li>Hiệu ứng đặc biệt khi hồi máu</li>
+            <li>Hiệu ứng khi mana bị vỡ</li>
+            <li>Âm thanh phản hồi khi hồi máu và sử dụng mana</li>
+        </ul>
+
+        <p>Hệ thống này tạo ra một lớp gameplay chiến thuật, yêu cầu người chơi phải quản lý tài nguyên một cách khôn ngoan và đưa ra quyết định trong các tình huống khác nhau của trò chơi.</p>
+    </div>
+
+    <div class="chapter">
+        <h1>CHƯƠNG 2. CÀI ĐẶT VÀ THỰC NGHIỆM</h1>
+
+        <h2>2.1 Công nghệ sử dụng</h2>
+        
+        <h3>2.1.1 Game Engine</h3>
+        <p>Game engine là một phần mềm được thiết kế để hỗ trợ việc phát triển game. Các nhà phát triển sử dụng game engine để phát triển game cho nhiều nền tảng khác nhau. Các game engine thường cung cấp các hệ thống như: renderer, physics engine, input system, audio system ... Ngoài ra game engine còn cung cấp các template, game object đặc biệt có thể sử dụng nhiều lần trong hệ thống. Vì lý do này vai trò chính của game engine làm đơn giản hóa hơn quy trình phát triển game, giúp người dùng có thể tiếp cận việc phát triển game dễ dàng hơn.</p>
+        <p>Ba trong số các game engine phổ biến nhất hiện nay gồm Unity, Unreal và Godot. Đồ án sử dụng Unity là một game engine đa nền tảng được phát triển bởi Unity Technologies. Ngoài các đặc điểm có thể thấy ở các game engine nổi tiếng hiện nay như đa nền tảng, cộng đồng người dùng lớn, hỗ trợ nhiều ngôn ngữ lập trình, ... Unity có các lợi thế khác biệt so với các game engine khác có thể kể đến:</p>
+        <ul>
+            <li>Editor có giao diện thân thiện với người dùng và dễ tiếp cận cho người mới bắt đầu phát triển game.</li>
+            <li>Unity Asset Store cung cấp một kho tài nguyên phong phú gồm các model, texture, script và các plugin giúp quá trình phát triển nhanh chóng hơn.</li>
+            <li>Hỗ trợ tốt cho cả phát triển game 2D và 3D với nhiều công cụ tích hợp giúp tối ưu hóa quy trình làm việc.</li>
+        </ul>
+
+        <h3>2.1.2 Môi trường lập trình</h3>
+        <p>Visual Studio là một môi trường phát triển tích hợp (IDE) mạnh mẽ được phát triển bởi Microsoft, rất phù hợp cho việc phát triển game Unity. Đây là một lựa chọn tốt cho dự án của bạn vì nó cung cấp nhiều tính năng hỗ trợ lập trình C# với Unity.</p>
+
+        <h3>2.1.3 Ngôn ngữ lập trình C#</h3>
+        <p>C# là một ngôn ngữ lập trình được phát triển bởi Microsoft. Các đặc điểm của C# bao gồm: đa năng, hướng đối tượng, kiểu tĩnh, ... C# được ra đời cùng với .NET và Visual Studio. C# thường được dùng để tạo ra các ứng dụng trên hệ điều hành Windows. Unity là một game engine hỗ trợ lập trình với C# thông qua Unity Scripting API và môi trường phát triển tích hợp (IDE) như Visual Studio hoặc Visual Studio Code.</p>
+
+        <h3>2.1.4 Hiệu ứng đồ hoạ</h3>
+        <p>Particle System trong Unity là một hệ thống mạnh mẽ dùng để tạo ra và điều khiển các hiệu ứng hạt như lửa, khói, mưa, ma thuật, bụi, nổ và nhiều hiệu ứng đồ họa khác.</p>
+        <p>Unity's Particle System cho phép nhà phát triển:</p>
+        <ul>
+            <li>Tùy chỉnh các thuộc tính như hình dạng, màu sắc, kích thước, tốc độ và thời gian sống của các hạt</li>
+            <li>Thiết lập các trình phát hạt với nhiều hình dạng khác nhau (hình hộp, hình cầu, hình nón...)</li>
+            <li>Tạo hiệu ứng vật lý như lực hấp dẫn, va chạm</li>
+            <li>Kiểm soát quỹ đạo và chuyển động của các hạt</li>
+            <li>Tạo các hiệu ứng phức tạp bằng cách kết hợp nhiều hệ thống hạt lại với nhau</li>
+        </ul>
+        <p>Particle System là một công cụ quan trọng trong việc nâng cao chất lượng hiệu ứng đồ họa của game, tạo cảm giác sống động và chân thực hơn cho người chơi.</p>
+
+        <h3>2.1.6 Hệ thống truyền sự kiện</h3>
+        <p class="bold">a) Khái niệm</p>
+        <p>Giống như các kiến trúc phần mềm GUI, hệ thống trò chơi phần lớn sử dụng mô hình hướng sự kiện (event-driven). Đây là một mô hình chú trọng vào việc tạo và sử dụng các sự kiện: tương tác người dùng, sự kiện hệ thống, tin nhắn từ các chương trình khác, ... Khác với các kiến trúc phần mềm khác thường đi theo một luồng logic cố định, mô hình hướng sự kiện xử lý luồng dữ liệu phản hồi dựa trên các sự kiện nhận được, do đó hệ thống sẽ có tính phản hồi cao và vô cùng linh hoạt.</p>
+
+        <p class="bold">b) Unity Event System</p>
+        <p>Đồ án triển khai mô hình này bằng cách sử dụng Event System của Unity kết hợp với C# Events và UnityEvents.</p>
+        <p>Unity Event System gồm có ba thành phần chính:</p>
+        <ul>
+            <li>Event Sender/Publisher: phụ trách việc phát đi các sự kiện thông qua C# Events hoặc UnityEvents.</li>
+            <li>EventSystem Component: có vai trò là một hệ thống trung gian quản lý và điều phối các input events, gửi chúng đến các đối tượng UI tương ứng thông qua Raycasting.</li>
+            <li>Event Receiver/Listener: nhận và xử lý các sự kiện thông qua việc triển khai các interface như IPointerClickHandler, IDragHandler hoặc đăng ký callbacks với UnityEvents.</li>
+        </ul>
+
+        <h2>2.2 Cài đặt</h2>
+        
+        <h3>2.2.1 Ứng dụng trong triển khai luồng hoạt động của màn chơi</h3>
+        <p>Hệ thống sự kiện được sử dụng để quản lý luồng hoạt động của màn chơi, bao gồm:</p>
+        <ul>
+            <li>Khởi tạo màn chơi</li>
+            <li>Xử lý tương tác người chơi</li>
+            <li>Quản lý trạng thái game</li>
+            <li>Xử lý các sự kiện đặc biệt</li>
+        </ul>
+
+        <h3>2.2.2 Xây dựng nhân vật</h3>
+        <p class="bold">a) Tạo nhân vật trên Unity Editor</p>
+        <ul>
+            <li>Thiết lập GameObject mới bằng cách đưa hình ảnh nhân vật vào Scene hoặc Hierachy</li>
+            <li>Sử dụng Animator và Animation Clip để xây dựng animation frame-by-frame cho nhân vật</li>
+            <li>Đưa các hoạt ảnh của nhân vật vào timeline của animation để tạo animation frame-by-frame</li>
+        </ul>
+
+        <p class="bold">b) Điều khiển nhân vật</p>
+        <p>Điều khiển nhân vật bằng Component: PlayerController.cs</p>
+        <p>Trong đó:</p>
+        <ul>
+            <li>Movement(): Điều khiển di chuyển ngang của nhân vật dựa trên input từ người chơi</li>
+            <li>Jump(): Xử lý hành động nhảy của nhân vật, bao gồm nhảy thường, nhảy đôi và nhảy từ tường</li>
+            <li>Dash(): Cho phép nhân vật thực hiện cú dash (lao nhanh) theo hướng hiện tại</li>
+            <li>Heal(): Xử lý việc hồi máu cho nhân vật</li>
+            <li>TakeDamage(): Giảm máu của nhân vật khi bị tấn công</li>
+            <li>Death(): Xử lý cái chết của nhân vật</li>
+            <li>Attack(): Xử lý các đòn tấn công cận chiến</li>
+            <li>CastSpell(): Xử lý việc sử dụng phép thuật</li>
+        </ul>
+
+        <p class="bold">c) Di chuyển nâng cao</p>
+        <p>Các kỹ thuật đã triển khai:</p>
+        <ul>
+            <li>Dịch chuyển trong trạng thái rơi</li>
+            <li>Coyote time</li>
+            <li>Jump buffering</li>
+        </ul>
+
+        <p class="bold">d) Kỹ năng nhân vật</p>
+        <ul>
+            <li>Nhảy tường</li>
+            <li>Lao nhanh</li>
+            <li>Variable Jump</li>
+            <li>Kỹ năng phép thuật</li>
+        </ul>
+
+        <h3>2.2.3 Xây dựng môi trường trò chơi</h3>
+        <p class="bold">a) Kỹ thuật thiết kế</p>
+        <p>Kỹ thuật thiết kế Parallax Layering:</p>
+        <ul>
+            <li>Sử dụng nhiều lớp nền (background layers) chồng lên nhau</li>
+            <li>Mỗi lớp di chuyển với tốc độ khác nhau khi camera di chuyển</li>
+            <li>Các lớp xa hơn di chuyển chậm hơn</li>
+            <li>Các lớp gần hơn di chuyển nhanh hơn</li>
+        </ul>
+
+        <p class="bold">b) Kiểu xây dựng</p>
+        <p>Kiểu xây dựng map được sử dụng trong Hollow Knight được gọi là "Metroidvania" hoặc "interconnected world design" (thiết kế thế giới kết nối).</p>
+        <p>Đặc điểm chính:</p>
+        <ul>
+            <li>Thế giới liền mạch kết nối với nhau</li>
+            <li>Nhiều khu vực có thể được khám phá theo nhiều hướng khác nhau</li>
+            <li>Một số khu vực bị khóa và chỉ có thể truy cập khi đạt được khả năng đặc biệt</li>
+            <li>Khuyến khích khám phá và quay lại các khu vực đã đi qua</li>
+        </ul>
+
+        <h3>2.2.4 Kẻ địch</h3>
+        <p class="bold">2.2.4.1 Lớp EnemyController</p>
+        <p>Điều chỉnh kẻ địch bằng Component: EnemyController.cs</p>
+        <p>Trong đó:</p>
+        <ul>
+            <li>Attack(): Gây sát thương lên người chơi</li>
+            <li>ChangeCurrentAnimation(): Thay đổi animation của quái vật</li>
+            <li>ChangeState(): Thay đổi trạng thái của quái vật</li>
+            <li>Death(): Xử lý cách thức chết của quái vật</li>
+            <li>EnemyHit(): Xử lý khi quái vật bị tấn công</li>
+            <li>UpdateEnemyState(): Cập nhật logic hành vi của quái vật</li>
+        </ul>
+
+        <p class="bold">2.2.4.2 Lớp BossController</p>
+        <p>Điều chỉnh quái khung bằng Component: BossController.cs</p>
+        <p>Trong đó:</p>
+        <ul>
+            <li>Attack(): Gây sát thương lên người chơi</li>
+            <li>ChangeCurrentAnimation(): Thay đổi animation của boss</li>
+            <li>ChangeState(): Thay đổi trạng thái của boss</li>
+            <li>Death(): Xử lý cách thức chết của boss</li>
+            <li>EnemyHit(): Xử lý khi boss bị tấn công</li>
+            <li>UpdateBossState(): Cập nhật logic hành vi của boss</li>
+        </ul>
+
+        <p class="bold">2.2.4.3 Các loại kẻ địch</p>
+        <p>Kẻ địch thường:</p>
+        <ul>
+            <li>Crawler: loại kẻ địch cụ thể có khả năng bò và di chuyển dọc theo các bề mặt</li>
+            <li>Buzzer: loại kẻ địch bay có khả năng đuổi theo người chơi</li>
+            <li>ZombieBasic: loại kẻ địch zombie có khả năng di chuyển và tấn công</li>
+            <li>MossCrawler: loại kẻ địch đặc biệt có khả năng ẩn nấp</li>
+            <li>Dasher: loại kẻ địch tấn công nhanh và mạnh</li>
+        </ul>
+
+        <p>Quái khủng:</p>
+        <ul>
+            <li>Mage: Quái dạng pháp sư với nhiều kĩ năng đặc biệt:
+                <ul>
+                    <li>Dịch chuyển tức thời</li>
+                    <li>Sử dụng 3 loại đạn phép khác nhau</li>
+                    <li>Có khả năng lao nhanh vào người chơi</li>
+                    <li>Có khả năng tạo sóng xung kích</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>2.3 Spike</h2>
+        <p>Spike (bẫy gai) là loại chướng ngại vật trong trò chơi, gây sát thương ngay lập tức khi người chơi chạm vào.</p>
+
+        <h2>2.4 Respawn point</h2>
+        <p>Respawn Point là vị trí mà người chơi sẽ được hồi sinh sau khi chết hoặc rơi vào gai. Hệ thống này được quản lý bởi GameManager.</p>
+
+        <h2>2.5 Save Point</h2>
+        <p>Save Point cho phép người chơi lưu tiến trình game. Hệ thống này sử dụng cấu trúc SaveData để lưu trữ thông tin:</p>
+        <ul>
+            <li>Vị trí và scene của điểm lưu</li>
+            <li>Trạng thái người chơi (máu, mana, vị trí)</li>
+            <li>Các kỹ năng đã mở khóa</li>
+            <li>Thông tin về Shade</li>
+        </ul>
+
+        <h2>2.6 Hệ thống UI</h2>
+        <p class="bold">2.6.1 Thanh máu và Năng lượng</p>
+        <p>Thanh máu (Health Bar):</p>
+        <ul>
+            <li>Hiển thị dưới dạng thanh ngang ở góc trên bên trái màn hình</li>
+            <li>Sử dụng Image component với fill type là Horizontal</li>
+            <li>Màu sắc thay đổi theo lượng máu</li>
+            <li>Có hiệu ứng chuyển động mượt mà</li>
+            <li>Hiển thị số lượng máu hiện tại/tối đa</li>
+        </ul>
+
+        <p>Thanh Năng lượng:</p>
+        <ul>
+            <li>Được thiết kế tương tự thanh máu</li>
+            <li>Sử dụng gradient màu để thể hiện lượng mana</li>
+            <li>Có hiệu ứng đặc biệt khi mana bị vỡ</li>
+            <li>Hiển thị trạng thái mana</li>
+        </ul>
+
+        <p class="bold">2.6.2 Màn hình Pause và Death Screen</p>
+        <p>Màn hình Pause: Kích hoạt khi nhấn ESC</p>
+        <p>Các tính năng:</p>
+        <ul>
+            <li>Tiếp tục game</li>
+            <li>Quay về menu chính</li>
+        </ul>
+
+        <p class="bold">2.6.3 Hệ thống Menu chính</p>
+        <p>Menu chính bao gồm:</p>
+        <ul>
+            <li>Bắt đầu game</li>
+            <li>Cài đặt</li>
+            <li>Thoát game</li>
+        </ul>
+
+        <h2>2.7 Hệ thống âm thanh</h2>
+        <p class="bold">2.7.1 Các loại âm thanh trong game</p>
+        <p>Âm thanh di chuyển:</p>
+        <ul>
+            <li>Landing sound: Âm thanh khi tiếp đất</li>
+            <li>Jump sound: Âm thanh khi nhảy</li>
+            <li>Dash sound: Âm thanh khi lao nhanh</li>
+        </ul>
+
+        <p>Âm thanh tấn công:</p>
+        <ul>
+            <li>Attack sound: Âm thanh khi tấn công</li>
+            <li>Spell cast sound: Âm thanh khi sử dụng phép thuật</li>
+        </ul>
+
+        <p>Âm thanh tương tác:</p>
+        <ul>
+            <li>Hurt sound: Âm thanh khi bị thương</li>
+            <li>Death sound: Âm thanh khi chết</li>
+        </ul>
+
+        <p>Âm thanh môi trường:</p>
+        <ul>
+            <li>Background Music (BGM):
+                <ul>
+                    <li>Nhạc nền menu chính</li>
+                    <li>Nhạc nền các khu vực khác nhau</li>
+                    <li>Nhạc nền khi đánh boss</li>
+                    <li>Nhạc nền khi chết</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p class="bold">2.7.2 Triển khai Audio System</p>
+        <ul>
+            <li>Sử dụng Unity Audio System:
+                <ul>
+                    <li>AudioSource component cho mỗi đối tượng cần phát âm thanh</li>
+                    <li>AudioListener component trên camera chính</li>
+                    <li>AudioMixer để quản lý và điều chỉnh âm thanh</li>
+                </ul>
+            </li>
+            <li>Cấu trúc quản lý âm thanh:
+                <ul>
+                    <li>AudioSource được gắn trực tiếp vào PlayerController</li>
+                    <li>Sử dụng PlayOneShot() cho các âm thanh ngắn</li>
+                    <li>Sử dụng Play() cho các âm thanh dài như BGM</li>
+                    <li>Có thể điều chỉnh volume và pitch</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>2.7 Thực nghiệm</h2>
+        <p class="bold">2.7.1 Build game cho Windows</p>
+        <p>Quy trình build game:</p>
+        <ol>
+            <li>Chọn các scene cần build</li>
+            <li>Đảm bảo các scene được đưa vào bản build đều được tick chọn trong mục "Scenes In Build"</li>
+            <li>Ở mục "Platform", chọn Windows</li>
+            <li>Nhấn nút Build</li>
+            <li>Đợi quá trình build hoàn tất</li>
+            <li>Unity sẽ xuất ra file thực thi (.exe cho Windows) cùng các file dữ liệu liên quan</li>
+        </ol>
+    </div>
+
+    <div class="chapter">
+        <h1>CHƯƠNG 3. KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN</h1>
+
+        <h2>3.1 Kết luận</h2>
+        <p>Dự án Hollow Knight Remaster đã thành công trong việc tái hiện lại các gameplay cốt lõi của tựa game gốc, đồng thời áp dụng các công nghệ và kỹ thuật hiện đại trong phát triển game. Các thành tựu chính của dự án bao gồm:</p>
+        <ul>
+            <li>Xây dựng thành công hệ thống điều khiển nhân vật linh hoạt và mượt mà, bao gồm các kỹ năng cơ bản và nâng cao</li>
+            <li>Triển khai hiệu quả hệ thống combat với các cơ chế tấn công đa dạng</li>
+            <li>Thiết kế và xây dựng môi trường game theo phong cách Metroidvania</li>
+            <li>Phát triển hệ thống UI/UX trực quan và thân thiện với người dùng</li>
+            <li>Tích hợp thành công hệ thống âm thanh và hiệu ứng đồ họa</li>
+        </ul>
+
+        <h2>3.2 Thách thức gặp phải</h2>
+        <p>Trong quá trình phát triển, dự án đã gặp phải một số thách thức đáng kể:</p>
+        <ul>
+            <li>Việc tối ưu hóa hiệu suất game trên các nền tảng khác nhau</li>
+            <li>Đảm bảo tính cân bằng trong gameplay và độ khó của game</li>
+            <li>Xử lý các vấn đề về va chạm và vật lý trong môi trường 2D</li>
+            <li>Quản lý và tổ chức code base một cách hiệu quả</li>
+            <li>Đảm bảo tính nhất quán trong thiết kế và trải nghiệm người dùng</li>
+        </ul>
+
+        <h2>3.3 Hướng phát triển</h2>
+        <p>Dự án có tiềm năng phát triển thêm trong tương lai với các hướng sau:</p>
+        <ul>
+            <li>Mở rộng nội dung game:
+                <ul>
+                    <li>Thêm các khu vực mới và boss mới</li>
+                    <li>Phát triển thêm các kỹ năng và vũ khí cho nhân vật</li>
+                    <li>Bổ sung các nhiệm vụ phụ và thử thách</li>
+                </ul>
+            </li>
+            <li>Cải thiện kỹ thuật:
+                <ul>
+                    <li>Tối ưu hóa hiệu suất và tài nguyên</li>
+                    <li>Nâng cấp hệ thống lưu trữ và tải game</li>
+                    <li>Cải thiện hệ thống AI cho kẻ địch</li>
+                </ul>
+            </li>
+            <li>Phát triển tính năng mới:
+                <ul>
+                    <li>Thêm chế độ chơi nhiều người</li>
+                    <li>Phát triển hệ thống thành tích và bảng xếp hạng</li>
+                    <li>Tích hợp hệ thống mod cho người chơi</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>3.4 Bài học kinh nghiệm</h2>
+        <p>Từ quá trình phát triển dự án, chúng tôi đã rút ra được nhiều bài học quý báu:</p>
+        <ul>
+            <li>Về quản lý dự án:
+                <ul>
+                    <li>Tầm quan trọng của việc lập kế hoạch chi tiết và phân chia công việc hợp lý</li>
+                    <li>Cần có tài liệu thiết kế rõ ràng và cập nhật thường xuyên</li>
+                    <li>Việc kiểm thử liên tục giúp phát hiện và sửa lỗi sớm</li>
+                </ul>
+            </li>
+            <li>Về kỹ thuật:
+                <ul>
+                    <li>Tầm quan trọng của việc tổ chức code theo mô hình thiết kế phù hợp</li>
+                    <li>Cần chú trọng đến việc tối ưu hóa hiệu suất ngay từ đầu</li>
+                    <li>Việc sử dụng các công cụ và thư viện phù hợp giúp tăng hiệu quả phát triển</li>
+                </ul>
+            </li>
+            <li>Về game design:
+                <ul>
+                    <li>Cần cân nhắc kỹ lưỡng về trải nghiệm người chơi trong mọi quyết định thiết kế</li>
+                    <li>Việc playtest thường xuyên giúp cải thiện chất lượng game</li>
+                    <li>Tầm quan trọng của việc tạo ra gameplay cân bằng và thú vị</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="chapter">
+        <h1>CHƯƠNG 4. TÀI LIỆU THAM KHẢO</h1>
+        <ol>
+            <li>Unity Technologies. (2023). Unity Documentation. <a href="https://docs.unity3d.com/">https://docs.unity3d.com/</a></li>
+            <li>Microsoft. (2023). C# Documentation. <a href="https://docs.microsoft.com/en-us/dotnet/csharp/">https://docs.microsoft.com/en-us/dotnet/csharp/</a></li>
+            <li>Team Cherry. (2017). Hollow Knight. PC Game.</li>
+            <li>Unity Technologies. (2023). Unity Asset Store. <a href="https://assetstore.unity.com/">https://assetstore.unity.com/</a></li>
+            <li>Nystrom, R. (2014). Game Programming Patterns. Genever Benning.</li>
+            <li>Unity Technologies. (2023). Unity Learn. <a href="https://learn.unity.com/">https://learn.unity.com/</a></li>
+            <li>GameDev.tv. (2023). Complete C# Unity Game Developer 2D. Udemy.</li>
+            <li>Brackeys. (2023). Unity Tutorials. <a href="https://www.youtube.com/c/Brackeys">https://www.youtube.com/c/Brackeys</a></li>
+            <li>Unity Technologies. (2023). Unity Forums. <a href="https://forum.unity.com/">https://forum.unity.com/</a></li>
+            <li>Stack Overflow. (2023). Unity Questions. <a href="https://stackoverflow.com/questions/tagged/unity3d">https://stackoverflow.com/questions/tagged/unity3d</a></li>
+        </ol>
+    </div>
+</body>
+</html> 

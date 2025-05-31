@@ -141,6 +141,8 @@ public class PlayerController : MonoBehaviour
     public bool unlockUpCast;
     public bool unlockDownCast;
 
+    public int point;
+
     private bool landingSoundPlayed;
     private AudioSource audioSource;
     private void Awake()

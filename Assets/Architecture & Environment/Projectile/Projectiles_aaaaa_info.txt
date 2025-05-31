@@ -1,0 +1,15 @@
+version: 2
+type: animation
+name: Shockwave
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 8
+0	Shockwave_000.png
+1	Shockwave_001.png
+2	Shockwave_002.png
+3	Shockwave_003.png
+4	Shockwave_004.png
+5	Shockwave_005.png
+6	Shockwave_006.png
+7	Shockwave_007.png

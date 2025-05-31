@@ -1,0 +1,15 @@
+version: 2
+type: animation
+name: Reappear
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 8
+0	Reappear_000.png
+1	Reappear_001.png
+2	Reappear_002.png
+3	Reappear_003.png
+4	Reappear_004.png
+5	Reappear_005.png
+6	Reappear_006.png
+7	Reappear_007.png

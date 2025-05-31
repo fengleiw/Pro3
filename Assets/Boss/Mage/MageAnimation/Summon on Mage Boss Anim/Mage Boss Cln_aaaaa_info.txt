@@ -1,0 +1,14 @@
+version: 2
+type: animation
+name: Summon
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 7
+0	Summon_000.png
+1	Summon_001.png
+2	Summon_002.png
+3	Summon_003.png
+4	Summon_004.png
+5	Summon_005.png
+6	Summon_006.png

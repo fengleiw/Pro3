@@ -1,0 +1,11 @@
+version: 2
+type: animation
+name: Startle
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 4
+0	Startle_000.png
+1	Startle_001.png
+2	Startle_002.png
+3	Startle_003.png

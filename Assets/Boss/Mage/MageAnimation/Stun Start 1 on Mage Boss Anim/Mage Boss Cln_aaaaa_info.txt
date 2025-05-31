@@ -1,0 +1,15 @@
+version: 2
+type: animation
+name: Stun Start 1
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 8
+0	Stun Start 1_000.png
+1	Stun Start 1_001.png
+2	Stun Start 1_002.png
+3	Stun Start 1_003.png
+4	Stun Start 1_004.png
+5	Stun Start 1_005.png
+6	Stun Start 1_006.png
+7	Stun Start 1_007.png

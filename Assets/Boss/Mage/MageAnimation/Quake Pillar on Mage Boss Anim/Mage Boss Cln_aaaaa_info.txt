@@ -1,0 +1,13 @@
+version: 2
+type: animation
+name: Quake Pillar
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 6
+0	Quake Pillar_000.png
+1	Quake Pillar_001.png
+2	Quake Pillar_002.png
+3	Quake Pillar_003.png
+4	Quake Pillar_004.png
+5	Quake Pillar_005.png

@@ -56,7 +56,16 @@ public class EnemyController : MonoBehaviour
 
         //Climber
         Climber_Idle,
-        Climber_Flip
+        Climber_Flip,
+
+        //Dasher
+        Dasher_Idle,
+        Dasher_Charging,
+        Dasher_Dashing,
+        Dasher_Cooldown,
+        Dasher_Stunned,
+        Dasher_Death
+
 
 
     }
@@ -123,10 +132,12 @@ public class EnemyController : MonoBehaviour
             rb.velocity = (-_hitForce * recoilFactor * _hitDirection);
         }
     }
-
+    //Override point value each enemy; DONE point -> save point to file game. reset point to 0 when die;
     protected virtual void Death(float _destroyTime)
     {
+        PlayerController.Instance.point++;
         Destroy(gameObject, _destroyTime);
+        
     }
 
     protected void OnCollisionStay2D(Collision2D _other)

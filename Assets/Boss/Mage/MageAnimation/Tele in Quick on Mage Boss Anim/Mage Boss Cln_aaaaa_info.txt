@@ -1,0 +1,11 @@
+version: 2
+type: animation
+name: Tele In Quick
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 4
+0	Tele In Quick_000.png
+1	Tele In Quick_001.png
+2	Tele In Quick_002.png
+3	Tele In Quick_003.png

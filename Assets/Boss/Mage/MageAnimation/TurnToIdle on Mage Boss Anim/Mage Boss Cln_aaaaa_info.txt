@@ -1,0 +1,15 @@
+version: 2
+type: animation
+name: TurnToIdle
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 8
+0	TurnToIdle_000.png
+1	TurnToIdle_001.png
+2	TurnToIdle_002.png
+3	TurnToIdle_003.png
+4	TurnToIdle_004.png
+5	TurnToIdle_005.png
+6	TurnToIdle_006.png
+7	TurnToIdle_007.png

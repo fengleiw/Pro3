@@ -1,0 +1,12 @@
+version: 2
+type: animation
+name: Roar
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 5
+0	Roar_000.png
+1	Roar_001.png
+2	Roar_002.png
+3	Roar_003.png
+4	Roar_004.png

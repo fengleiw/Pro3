@@ -1,0 +1,14 @@
+version: 2
+type: animation
+name: Cast
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 7
+0	Cast_000.png
+1	Cast_001.png
+2	Cast_002.png
+3	Cast_003.png
+4	Cast_004.png
+5	Cast_005.png
+6	Cast_006.png

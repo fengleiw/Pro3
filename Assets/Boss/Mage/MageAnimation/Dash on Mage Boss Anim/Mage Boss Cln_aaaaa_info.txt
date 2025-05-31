@@ -1,0 +1,11 @@
+version: 2
+type: animation
+name: Dash
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 4
+0	Dash_000.png
+1	Dash_001.png
+2	Dash_002.png
+3	Dash_003.png

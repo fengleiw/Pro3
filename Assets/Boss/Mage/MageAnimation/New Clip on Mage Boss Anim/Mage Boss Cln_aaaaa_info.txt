@@ -1,0 +1,8 @@
+version: 2
+type: animation
+name: New Clip
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 1
+0	New Clip_000.png

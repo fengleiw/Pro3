@@ -1,0 +1,12 @@
+version: 2
+type: animation
+name: Quake Antic Quicker
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 5
+0	Quake Antic Quicker_000.png
+1	Quake Antic Quicker_001.png
+2	Quake Antic Quicker_002.png
+3	Quake Antic Quicker_003.png
+4	Quake Antic Quicker_004.png

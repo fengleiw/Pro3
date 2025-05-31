@@ -1,0 +1,11 @@
+version: 2
+type: animation
+name: Tele Out Corpse
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 4
+0	Tele Out Corpse_000.png
+1	Tele Out Corpse_001.png
+2	Tele Out Corpse_002.png
+3	Tele Out Corpse_003.png

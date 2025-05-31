@@ -1,0 +1,10 @@
+version: 2
+type: animation
+name: Spaz
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 3
+0	Spaz_000.png
+1	Spaz_001.png
+2	Spaz_002.png

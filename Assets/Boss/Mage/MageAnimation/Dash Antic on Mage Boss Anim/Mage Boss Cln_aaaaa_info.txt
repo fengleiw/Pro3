@@ -1,0 +1,12 @@
+version: 2
+type: animation
+name: Dash Antic
+consistent_sprite_size: true
+enable_borders: false
+use_sprite_name: false
+sprites: 5
+0	Dash Antic_000.png
+1	Dash Antic_001.png
+2	Dash Antic_002.png
+3	Dash Antic_003.png
+4	Dash Antic_004.png
