@@ -9,11 +9,22 @@ public class Mage : BossController
     [SerializeField] private float minY = -1.5f;
     [SerializeField] private float maxY = 2f;
 
+
+    [SerializeField] Transform pillarPos;
+    [SerializeField] private GameObject pillarPre;
     [Header("Projectile Setting")]
     [SerializeField] GameObject projectile;
     [SerializeField] Transform position;
     [SerializeField] Transform rushPositionLeft;
     [SerializeField] Transform rushPositionRight;
+    [SerializeField] private float projectileDelay = 3f; // Thời gian delay giữa các projectile
+    [SerializeField] private int projectileCount = 3; // Số lượng projectile mỗi lần tấn công
+    private int currentProjectileCount = 0;
+    private float nextProjectileTime = 0f;
+
+    [Header("Effect Settings")]
+    [SerializeField] private GameObject shockwaveEffect; // Hiệu ứng sóng xung kích khi quake
+    [SerializeField] private float shockwaveOffset = 1f; // Khoảng cách giữa boss và sóng xung kích
 
     [Header("Phase Settings")]
     [SerializeField] private float phase2HealthThreshold = 50f;
@@ -24,6 +35,7 @@ public class Mage : BossController
     [SerializeField] private float rushSpeed = 15f;
     [SerializeField] private float groundY = -1.5f;
     [SerializeField] private bool isRushing = false;
+    private SpriteRenderer spriteRenderer; // Thêm biến để lưu SpriteRenderer
 
     [Header("Teleport Settings")]
     [SerializeField] private int maxTeleportCount = 3;
@@ -50,7 +62,8 @@ public class Mage : BossController
         BossStates.Mage_Teleport,
         BossStates.Mage_Projectile1,
         BossStates.Mage_Rush,
-        BossStates.Mage_Quake
+        BossStates.Mage_Quake,
+        BossStates.Mage_Roar
     };
 
     private BossStates[] phase2Attacks = {
@@ -62,11 +75,15 @@ public class Mage : BossController
         BossStates.Mage_Roar
     };
 
+    [SerializeField] GameObject Projectile2;
+    [SerializeField] Transform pro2Pos;
+
     protected override void Start()
     {
         base.Start();
         nextAttackTime = Time.time + attackCooldown;
-        GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>(); // Lấy component SpriteRenderer
 
         // Start with random attack
         ChangeToRandomAttack();
@@ -145,6 +162,8 @@ public class Mage : BossController
         isQuakePreparation = false;
         quakeStateStartTime = 0f;
         lastTeleportPosition = Vector2.zero;
+        currentProjectileCount = 0;
+        nextProjectileTime = 0f;
     }
 
     private void ExecuteCurrentState()
@@ -191,6 +210,7 @@ public class Mage : BossController
             attackInProgress = true;
             nextTeleportTime = Time.time + teleportDelay;
             lastTeleportPosition = transform.position; // Lưu vị trí hiện tại
+            anim.SetBool("Teleport", true);
         }
 
         // Kiểm tra thời gian để teleport tiếp theo
@@ -214,6 +234,7 @@ public class Mage : BossController
         {
             attackInProgress = false;
             isTeleporting = false;
+            anim.SetBool("Teleport", false);
         }
     }
 
@@ -246,13 +267,37 @@ public class Mage : BossController
         if (!attackInProgress)
         {
             attackInProgress = true;
+            currentProjectileCount = 0;
+            nextProjectileTime = Time.time;
+        }
+
+        // Kiểm tra vị trí Y và di chuyển lên nếu cần
+        if (transform.position.y < -1.17f)
+        {
+            // Di chuyển lên vị trí cao hơn
+            float targetY = Random.Range(-1.17f, maxY);
+            transform.position = new Vector2(transform.position.x, targetY);
+            Debug.Log("Mage moving up to shoot projectiles");
+            return; // Chờ frame tiếp theo để kiểm tra lại
+        }
+
+        // Kiểm tra và tạo projectile mới nếu đã đến thời gian và ở vị trí phù hợp
+        if (attackInProgress && Time.time >= nextProjectileTime && currentProjectileCount < projectileCount && transform.position.y >= -1.17f)
+        {
             if (projectile != null && position != null)
             {
                 Instantiate(projectile, position.position, position.rotation);
+                currentProjectileCount++;
+                nextProjectileTime = Time.time + projectileDelay;
+                anim.SetTrigger("Cast");
+                Debug.Log($"Tạo projectile {currentProjectileCount}/{projectileCount}");
             }
 
-            // Projectile attack kết thúc ngay lập tức
-            StartCoroutine(EndProjectileAttack());
+            // Kết thúc đòn tấn công khi đã bắn đủ số projectile
+            if (currentProjectileCount >= projectileCount)
+            {
+                StartCoroutine(EndProjectileAttack());
+            }
         }
     }
 
@@ -260,6 +305,7 @@ public class Mage : BossController
     {
         yield return new WaitForSeconds(0.5f); // Chờ 0.5s trước khi có thể dùng chiêu khác
         attackInProgress = false;
+        currentProjectileCount = 0;
     }
 
     private void ExecuteRoar()
@@ -269,7 +315,12 @@ public class Mage : BossController
             attackInProgress = true;
             Debug.Log("Boss is roaring!");
 
-            // Add roar logic here
+            // Spawn Projectile2 and RotatingObject only once
+            if (Projectile2 != null && pro2Pos != null)
+            {
+                Instantiate(Projectile2, pro2Pos.position, pro2Pos.rotation);
+            }
+
             StartCoroutine(EndRoarAttack());
         }
     }
@@ -294,12 +345,22 @@ public class Mage : BossController
                 // Rush from left to right
                 transform.position = new Vector2(rushPositionLeft.position.x, rushPositionLeft.position.y);
                 rb.velocity = new Vector2(rushSpeed * speedMultiplier, 0);
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.flipX = false; // Không lật khi đi sang phải
+                }
+                anim.SetTrigger("rush");
             }
             else
             {
                 // Rush from right to left
                 transform.position = new Vector2(rushPositionRight.position.x, rushPositionRight.position.y);
                 rb.velocity = new Vector2(-rushSpeed * speedMultiplier, 0);
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.flipX = true; // Lật khi đi sang trái
+                }
+                anim.SetTrigger("rush");
             }
 
             isRushing = true;
@@ -337,7 +398,7 @@ public class Mage : BossController
             float telePosY = Random.Range(maxY - 1f, maxY);
             Vector2 teleportPosition = new Vector2(telePosX, telePosY);
             transform.position = teleportPosition;
-
+            anim.SetTrigger("QuakePrepare");
             Debug.Log("Quake preparation - Boss positioning above ground");
 
             // Add preparation effect here (glowing, charging animation, etc.)
@@ -347,16 +408,17 @@ public class Mage : BossController
         // Giai đoạn chuẩn bị - chờ trước khi lao xuống
         if (isQuakePreparation && !isRushing)
         {
+            
             if (Time.time - quakeStateStartTime >= quakePreparationTime)
             {
                 // Bắt đầu lao xuống
                 isQuakePreparation = false;
                 isRushing = true;
                 rb.velocity = new Vector2(0, -rushSpeed * speedMultiplier);
-
+                Instantiate(pillarPre, pillarPos);
                 Debug.Log("Quake attack - Boss rushing down!");
             }
-        }
+        } 
 
         // Giai đoạn lao xuống và va chạm
         if (isRushing && !isQuakePreparation && transform.position.y <= groundY)
@@ -366,14 +428,35 @@ public class Mage : BossController
             rb.velocity = Vector2.zero;
             isRushing = false;
 
+            // Tạo hiệu ứng sóng xung kích ở hai bên
+            if (shockwaveEffect != null)
+            {
+                // Tạo sóng bên phải (di chuyển sang phải)
+                Vector2 rightPos = new Vector2(transform.position.x + shockwaveOffset, transform.position.y);
+                GameObject rightWave = Instantiate(shockwaveEffect, rightPos, Quaternion.identity);
+                ShockWave rightWaveScript = rightWave.GetComponent<ShockWave>();
+                if (rightWaveScript != null)
+                {
+                    rightWaveScript.SetDirection(false); // false = di chuyển sang phải
+                }
+                
+                // Tạo sóng bên trái (di chuyển sang trái)
+                Vector2 leftPos = new Vector2(transform.position.x - shockwaveOffset, transform.position.y);
+                GameObject leftWave = Instantiate(shockwaveEffect, leftPos, Quaternion.identity);
+                ShockWave leftWaveScript = leftWave.GetComponent<ShockWave>();
+                if (leftWaveScript != null)
+                {
+                    leftWaveScript.SetDirection(true); // true = di chuyển sang trái
+                }
+            }
+
             // Bắt đầu giai đoạn recovery
             quakeStateStartTime = Time.time;
 
-            Debug.Log("Quake impact - Ground shaking!");
+            Debug.Log("Quake impact - Ground shaking with shockwaves!");
 
             // Add screen shake or ground impact effects here
             // ScreenShake.Instance.Shake(0.5f, 0.3f);
-            // Instantiate(shockwaveEffect, transform.position, Quaternion.identity);
         }
 
         // Giai đoạn recovery - nghỉ sau khi quake

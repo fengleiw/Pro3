@@ -22,9 +22,22 @@ public class Projectile : MonoBehaviour
 
     void Start()
     {
+        // Đảm bảo đạn có Collider2D và Rigidbody2D
+        if (GetComponent<Collider2D>() == null)
+        {
+            BoxCollider2D collider = gameObject.AddComponent<BoxCollider2D>();
+            collider.isTrigger = true; // Set là trigger để không có va chạm vật lý
+        }
+
+        if (GetComponent<Rigidbody2D>() == null)
+        {
+            Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+            rb.gravityScale = 0f; // Tắt trọng lực
+            rb.isKinematic = true; // Set là kinematic để không bị ảnh hưởng bởi vật lý
+        }
+
         // Try to find the player object by tag
         GameObject playerObject = GameObject.FindGameObjectWithTag(targetTag);
-
         if (playerObject != null)
         {
             target = playerObject.transform;
@@ -87,17 +100,21 @@ public class Projectile : MonoBehaviour
             transform.position += currentVelocity * Time.deltaTime;
         }
     }
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Ground"))
+        Debug.Log($"Projectile hit: {other.gameObject.name} with tag: {other.tag}");
+        if (other.CompareTag("Ground") || other.CompareTag("Player"))
         {
+            Debug.Log("Destroying projectile due to collision with: " + other.tag);
             Destroy(gameObject);
         }
     }
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        Debug.Log($"Projectile collision with: {other.gameObject.name} with tag: {other.gameObject.tag}");
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Destroying projectile due to collision with: " + other.gameObject.tag);
             Destroy(gameObject);
         }
     }
@@ -114,4 +131,6 @@ public class Projectile : MonoBehaviour
             Gizmos.DrawLine(transform.position, target.position);
         }
     }
+
+    
 }

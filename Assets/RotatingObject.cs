@@ -9,7 +9,8 @@ public class RotatingObject : MonoBehaviour
     public int numberOfObjects = 4;
     public float radius = 5f;
     public Vector3 centerPosition = Vector3.zero;
-
+    public float lifetime = 3f; // Thời gian tồn tại của rotating object
+   
     [Header("Rotation Settings")]
     public float rotationSpeed = 30f;
     public bool clockwise = true;
@@ -21,15 +22,35 @@ public class RotatingObject : MonoBehaviour
 
     private List<GameObject> spawnedObjects = new List<GameObject>();
     private float currentAngle = 0f;
+    private Mage mage;
+    private float destroyTime;
 
     void Start()
     {
+        // Find Mage in scene and set center position
+        mage = FindObjectOfType<Mage>();
+        if (mage != null)
+        {
+            centerPosition = mage.transform.position;
+        }
         SpawnObjectsAdvanced();
+        destroyTime = Time.time + lifetime;
     }
 
     void Update()
     {
+        // Update center position to follow Mage
+        if (mage != null)
+        {
+            centerPosition = mage.transform.position;
+        }
         RotateObjectsAdvanced();
+
+        // Tự hủy sau lifetime giây
+        if (Time.time >= destroyTime)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnDrawGizmos()
@@ -37,9 +58,9 @@ public class RotatingObject : MonoBehaviour
         Gizmos.color = Color.yellow;
         //Gizmos.DrawWireCube();
     }
-        void SpawnObjectsAdvanced()
+
+    void SpawnObjectsAdvanced()
     {
-        
         foreach (GameObject obj in spawnedObjects)
         {
             if (obj != null)
